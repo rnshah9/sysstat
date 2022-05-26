@@ -1,5 +1,5 @@
 project: rnshah9/sysstat
-target: sysstat
+target: sar
 tests: null
 
 cmds:
