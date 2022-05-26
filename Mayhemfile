@@ -1,0 +1,6 @@
+project: rnshah9/sysstat
+target: sysstat
+tests: null
+
+cmds:
+  - cmd: /repo/sar -f @@
