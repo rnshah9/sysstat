@@ -2,4 +2,4 @@ project: sysstat
 target: sar
 
 cmds:
-  - cmd: /repo/sar -f @@
+  - cmd: /sar -f @@
