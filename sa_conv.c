@@ -221,14 +221,14 @@ void upgrade_file_header(void *buffer, struct file_header *file_hdr, int previou
 		file_hdr->sa_day = f_hdr_2173->sa_day;
 		file_hdr->sa_month = f_hdr_2173->sa_month;
 		file_hdr->sa_sizeof_long = f_hdr_2173->sa_sizeof_long;
-		strncpy(file_hdr->sa_sysname, f_hdr_2173->sa_sysname, UTSNAME_LEN);
-		file_hdr->sa_sysname[UTSNAME_LEN - 1] = '\0';
-		strncpy(file_hdr->sa_nodename, f_hdr_2173->sa_nodename, UTSNAME_LEN);
-		file_hdr->sa_nodename[UTSNAME_LEN - 1] = '\0';
-		strncpy(file_hdr->sa_release, f_hdr_2173->sa_release, UTSNAME_LEN);
-		file_hdr->sa_release[UTSNAME_LEN - 1] = '\0';
-		strncpy(file_hdr->sa_machine, f_hdr_2173->sa_machine, UTSNAME_LEN);
-		file_hdr->sa_machine[UTSNAME_LEN - 1] = '\0';
+		strncpy(file_hdr->sa_sysname, f_hdr_2173->sa_sysname, sizeof(file_hdr->sa_sysname));
+		file_hdr->sa_sysname[sizeof(file_hdr->sa_sysname) - 1] = '\0';
+		strncpy(file_hdr->sa_nodename, f_hdr_2173->sa_nodename, sizeof(file_hdr->sa_nodename));
+		file_hdr->sa_nodename[sizeof(file_hdr->sa_nodename) - 1] = '\0';
+		strncpy(file_hdr->sa_release, f_hdr_2173->sa_release, sizeof(file_hdr->sa_release));
+		file_hdr->sa_release[sizeof(file_hdr->sa_release) - 1] = '\0';
+		strncpy(file_hdr->sa_machine, f_hdr_2173->sa_machine, sizeof(file_hdr->sa_machine));
+		file_hdr->sa_machine[sizeof(file_hdr->sa_machine) - 1] = '\0';
 
 		*vol_act_nr = f_hdr_2173->sa_vol_act_nr;
 	}
@@ -552,7 +552,8 @@ void upgrade_stats_irq(struct activity *act[], int p, unsigned int magic)
 				strcpy(sic->irq_name, K_LOWERSUM);
 			}
 			else {
-				sprintf(sic->irq_name, "%d", i - 1);
+				snprintf(sic->irq_name, sizeof(sic->irq_name), "%d", i - 1 > NR2_MAX ? NR2_MAX : i - 1);
+				sic->irq_name[sizeof(sic->irq_name) - 1] = '\0';
 			}
 		}
 	}
@@ -570,7 +571,8 @@ void upgrade_stats_irq(struct activity *act[], int p, unsigned int magic)
 				strcpy(sic->irq_name, K_LOWERSUM);
 			}
 			else {
-				sprintf(sic->irq_name, "%d", i - 1);
+				snprintf(sic->irq_name, sizeof(sic->irq_name), "%d", i - 1 > NR2_MAX ? NR2_MAX : i - 1);
+				sic->irq_name[sizeof(sic->irq_name) - 1] = '\0';
 			}
 		}
 	}
