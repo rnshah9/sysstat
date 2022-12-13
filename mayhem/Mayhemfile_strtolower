@@ -1,0 +1,6 @@
+project: sysstat
+target: strlower
+
+cmds:
+  - cmd: /fuzz_strtolower
+    libfuzzer: true
